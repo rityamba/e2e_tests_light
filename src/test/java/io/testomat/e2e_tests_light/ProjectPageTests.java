@@ -1,15 +1,16 @@
 package io.testomat.e2e_tests_light;
 
-import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebElementCondition;
-import com.codeborne.selenide.WebElementsCondition;
+import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.CollectionCondition.size;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
+import static io.e2e_tests_light.utils.StringParsers.parseInteger;
 
 public class ProjectPageTests extends BaseTest {
     String login = dotenv.get("TEST_LOGIN");
@@ -17,10 +18,33 @@ public class ProjectPageTests extends BaseTest {
     String baseUrl = dotenv.get("BASE_URL");
     String targetProjectName = "Testiks";
 
+    @Test
+    public void firstTest() {
+        open(baseUrl);
+        loginUser(login, password);
+        searchProject(targetProjectName);
+        selectProjectByName(targetProjectName);
+        waitForProjectIsLoaded(targetProjectName);
+    }
 
+    @Test
+    public void anotherTest() {
+        open(baseUrl);
+        loginUser(login, password);
+        searchProject(targetProjectName);
+        SelenideElement targetProject = countOfProjectsShouldBeEqualTo(1).first();
+        countOfTestsShouldBeEqualTo(targetProject, 0);
+    }
+
+    private void countOfTestsShouldBeEqualTo(SelenideElement targetProject, int expectedCount) {
+        String countOfTests = targetProject.$("p").getText();
+        Integer actualCountOfTest = parseInteger(countOfTests);
+
+        Assertions.assertEquals(expectedCount, actualCountOfTest);
+    }
     private static void waitForProjectIsLoaded(String projectName) {
         $(".sticky-header h2")
-                .shouldHave(new WebElementCondition[]{Condition.text(projectName)});
+                .shouldHave(text(projectName));
     }
 
     private static void selectProjectByName(String projectName) {
@@ -37,32 +61,12 @@ public class ProjectPageTests extends BaseTest {
         $("#content-desktop #user_remember_me").click();
         $("#content-desktop [name=\"commit\"]").click();
         $(".common-flash-success")
-                .shouldBe(new WebElementCondition[]{Condition.visible});
+                .shouldBe(visible);
     }
 
-    @Test
-    public void firstTest() {
-        open(baseUrl);
-        loginUser(login, password);
-        searchProject(targetProjectName);
-        selectProjectByName(targetProjectName);
-        waitForProjectIsLoaded(targetProjectName);
+    private static ElementsCollection countOfProjectsShouldBeEqualTo(int expectedSize) {
+        return $$("#grid ul li").filter(visible)
+                .shouldHave(size(expectedSize));
     }
 
-    @Test
-    public void anotherTest() {
-        open(baseUrl);
-        loginUser(login, password);
-        searchProject(targetProjectName);
-        Selenide.$$("#grid ul li").filter(Condition.visible)
-                        .shouldHave(CollectionCondition.size(1));
-        $("[title='Testiks'] p").shouldHave(Condition.exactText("0 tests"));
-    }
-
-    @Test
-    public void anotherTestCheck() {
-        Integer digit = parseInteger("875767 tests");
-        System.out.println(digit);
-        System.out.println(digit instanceof Integer);
-    }
 }

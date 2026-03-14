@@ -7,14 +7,4 @@ public class BaseTest {
 
     public BaseTest() {
     }
-
-    public Integer parseInteger(String text) {
-        String digitText = text.replaceAll("\\D+", "");
-        return Integer.parseInt(digitText);
-    }
-
-    public Double parseDouble(String text) {
-        String doubleText = text.replaceAll("\\d.", "");
-        return Double.parseDouble(doubleText);
-    }
 }
