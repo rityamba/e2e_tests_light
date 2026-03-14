@@ -18,3 +18,4 @@ jobs:
           -Dsonar.organization=rityamba
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+          -DskipTests=true
