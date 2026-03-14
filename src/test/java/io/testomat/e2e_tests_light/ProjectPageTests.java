@@ -14,13 +14,9 @@ import static com.codeborne.selenide.Selenide.*;
 import static io.e2e_tests_light.utils.StringParsers.parseInteger;
 
 public class ProjectPageTests extends BaseTest {
-    static String login = dotenv.get("TEST_LOGIN");
-    static String password = dotenv.get("TEST_PASSWORD");
-    static String baseUrl = dotenv.get("BASE_URL");
-    String targetProjectName = "Testiks";
 
     @BeforeAll
-    static void openTestomatAndLogin(){
+    static void openSiteAndLogin(){
         open(baseUrl);
         loginUser(login, password);
     }
@@ -56,15 +52,6 @@ public class ProjectPageTests extends BaseTest {
 
     private static void searchProject(String projectName) {
         $("#search").setValue(projectName);
-    }
-
-    private static void loginUser(String login, String password) {
-        $("#content-desktop #user_email").setValue(login);
-        $("#content-desktop #user_password").setValue(password);
-        $("#content-desktop #user_remember_me").click();
-        $("#content-desktop [name=\"commit\"]").click();
-        $(".common-flash-success")
-                .shouldBe(visible);
     }
 
     private static ElementsCollection countOfProjectsShouldBeEqualTo(int expectedSize) {
