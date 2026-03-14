@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package io.testomat.e2e_tests_light;
 
 import io.github.cdimascio.dotenv.Dotenv;
