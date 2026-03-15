@@ -1,8 +1,9 @@
-package io.testomat.e2e_tests_light;
+package io.testomat.e2e_tests_light.tests;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -12,11 +13,13 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static io.e2e_tests_light.utils.StringParsers.parseInteger;
+import static io.testomat.e2e_tests_light.pages.LoginPage.loginUser;
 
 public class ProjectPageTests extends BaseTest {
+    private final String targetProjectName = "Testiks";
 
     @BeforeAll
-    static void openSiteAndLogin(){
+    static void openSiteAndLogin() {
         open(baseUrl);
         loginUser(login, password);
     }
@@ -35,12 +38,6 @@ public class ProjectPageTests extends BaseTest {
         countOfTestsShouldBeEqualTo(targetProject, 0);
     }
 
-    private void countOfTestsShouldBeEqualTo(SelenideElement targetProject, int expectedCount) {
-        String countOfTests = targetProject.$("p").getText();
-        Integer actualCountOfTest = parseInteger(countOfTests);
-
-        Assertions.assertEquals(expectedCount, actualCountOfTest);
-    }
     private static void waitForProjectIsLoaded(String projectName) {
         $(".sticky-header h2")
                 .shouldHave(text(projectName));
@@ -57,6 +54,13 @@ public class ProjectPageTests extends BaseTest {
     private static ElementsCollection countOfProjectsShouldBeEqualTo(int expectedSize) {
         return $$("#grid ul li").filter(visible)
                 .shouldHave(size(expectedSize));
+    }
+
+
+    private void countOfTestsShouldBeEqualTo(SelenideElement targetProject, int expectedCount) {
+        String countOfTests = targetProject.$("p").getText();
+        Integer actualCountOfTest = parseInteger(countOfTests);
+        Assertions.assertEquals(expectedCount, actualCountOfTest);
     }
 
 }
