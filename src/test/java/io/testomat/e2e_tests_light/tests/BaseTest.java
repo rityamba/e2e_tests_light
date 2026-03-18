@@ -1,5 +1,6 @@
 package io.testomat.e2e_tests_light.tests;
 
+import com.codeborne.selenide.Configuration;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -14,9 +15,9 @@ public class BaseTest {
     public static Dotenv dotenv = Dotenv.load();
     static String login = dotenv.get("TEST_LOGIN");
     static String password = dotenv.get("TEST_PASSWORD");
-    static String baseUrl = dotenv.get("BASE_URL");
 
-    public BaseTest() {
+    static {
+        Configuration.baseUrl = dotenv.get("BASE_URL");
     }
 
     public static void goToRootPage() {

@@ -1,4 +1,4 @@
-package io.testomat.e2e_tests_light.pages;
+package io.e2e_tests_light.web.pages;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.withText;
@@ -26,6 +26,10 @@ public class ProjectPage {
     private static final String CLOSE_README_BUTTON_TEXT = "I got it, let's start!";
 
 
+    public void isLoaded(String projectName){
+        $(".sticky-header h2")
+                .shouldHave(text(projectName));
+    }
 
     public static void createNewProject(String type, String newProjectName) {
         openCreateProjectPage();

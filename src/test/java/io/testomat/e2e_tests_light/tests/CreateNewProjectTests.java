@@ -1,13 +1,13 @@
 package io.testomat.e2e_tests_light.tests;
 
 
+import io.e2e_tests_light.web.pages.SignInPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.open;
-import static io.testomat.e2e_tests_light.pages.LoginPage.loginUser;
-import static io.testomat.e2e_tests_light.pages.ProjectPage.createNewProject;
+import static io.e2e_tests_light.web.pages.ProjectPage.createNewProject;
 
 public class CreateNewProjectTests extends BaseTest {
 
@@ -16,8 +16,9 @@ public class CreateNewProjectTests extends BaseTest {
 
     @BeforeAll
     static void openSiteAndLogin() {
-        open(baseUrl);
-        loginUser(login, password);
+        SignInPage signInPage = new SignInPage();
+        signInPage.open();
+        signInPage.loginUser(login, password);
     }
 
     /* This is the part I really don't like... What should I do?
