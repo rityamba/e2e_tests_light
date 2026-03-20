@@ -26,7 +26,7 @@ public class ProjectPage {
     private static final String CLOSE_README_BUTTON_TEXT = "I got it, let's start!";
 
 
-    public void isLoaded(String projectName){
+    public void isLoaded(String projectName) {
         $(".sticky-header h2")
                 .shouldHave(text(projectName));
     }

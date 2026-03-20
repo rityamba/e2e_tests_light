@@ -15,6 +15,9 @@ public class BaseTest {
     public static Dotenv dotenv = Dotenv.load();
     static String login = dotenv.get("TEST_LOGIN");
     static String password = dotenv.get("TEST_PASSWORD");
+    static String targetCompanyName = dotenv.get("COMPANY_NAME");
+    static String targetProjectName = dotenv.get("PROJECT_NAME");
+
 
     static {
         Configuration.baseUrl = dotenv.get("BASE_URL");
