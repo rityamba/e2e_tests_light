@@ -1,22 +1,16 @@
 package io.testomat.e2e_tests_light.tests;
 
 import com.codeborne.selenide.SelenideElement;
-import io.e2e_tests_light.web.pages.ProjectPage;
-import io.e2e_tests_light.web.pages.ProjectsPage;
-import io.e2e_tests_light.web.pages.SignInPage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ProjectsPageTests extends BaseTest {
-    private static final ProjectsPage projectsPage = new ProjectsPage();
-    private static final ProjectPage projectPage = new ProjectPage();
-    private static final SignInPage signInPage = new SignInPage();
+
 
     @BeforeAll
     static void openSiteAndLogin() {
-        signInPage.open();
-        signInPage.loginUser(login, password);
+        signInPage.signIn(login, password);
         projectsPage.signInSuccess();
 
         projectsPage.changeCompanyTo(targetCompanyName);
@@ -25,7 +19,7 @@ public class ProjectsPageTests extends BaseTest {
 
     @BeforeEach
     void openProjectsPage() {
-        projectsPage.open();
+        projectsPage.openProjectsPage();
         projectsPage.isLoaded();
     }
 

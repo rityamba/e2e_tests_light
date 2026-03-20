@@ -16,12 +16,19 @@ public class ProjectsPage {
 
     private static final SelenideElement COMPANY_SELECTOR = $("#company_id");
 
+    private static final SelenideElement ADD_PROJECT_BUTTON = $(".common-btn-lg[href=\"/projects/new\"]");
+
+
     public void isLoaded() {
         SEARCH_FIELD.shouldBe(visible);
     }
 
-    public void open() {
+    public void openProjectsPage() {
         Selenide.open("");
+    }
+
+    public void clickCreateProjectButton() {
+        ADD_PROJECT_BUTTON.click();
     }
 
     public void searchProject(String projectName) {
